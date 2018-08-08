@@ -16,6 +16,7 @@ use SilverStripe\Dev\BuildTask;
 use SilverStripe\Dev\Debug;
 use SilverStripe\ORM\DataObject;
 use SilverStripe\ORM\Queries\SQLSelect;
+use SilverStripe\Versioned\Versioned;
 
 /**
  * Class BlocksToElementsTask
@@ -156,7 +157,7 @@ class BlocksToElementsTask extends BuildTask
                 }
                 $area = $page->ElementalArea();
                 $element->ParentID = $area->ID;
-                $element->write();
+                $element->writeToStage(Versioned::DRAFT);
 
                 static::write_it("Element of type {$elementType::singleton()->getType()} created with Title: \"{$element->Title}\".", false);
 
